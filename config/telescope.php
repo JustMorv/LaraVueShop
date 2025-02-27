@@ -7,19 +7,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Telescope Master Switch
-    |--------------------------------------------------------------------------
-    |
-    | This option may be used to disable all Telescope watchers regardless
-    | of their individual configuration, which simply provides a single
-    | and convenient way to enable or disable Telescope data storage.
-    |
-    */
-
-    'enabled' => env('TELESCOPE_ENABLED', true),
-
-    /*
-    |--------------------------------------------------------------------------
     | Telescope Domain
     |--------------------------------------------------------------------------
     |
@@ -29,7 +16,7 @@ return [
     |
     */
 
-    'domain' => env('TELESCOPE_DOMAIN'),
+    'domain' => env('TELESCOPE_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,20 +53,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Telescope Queue
+    | Telescope Master Switch
     |--------------------------------------------------------------------------
     |
-    | This configuration options determines the queue connection and queue
-    | which will be used to process ProcessPendingUpdate jobs. This can
-    | be changed if you would prefer to use a non-default connection.
+    | This option may be used to disable all Telescope watchers regardless
+    | of their individual configuration, which simply provides a single
+    | and convenient way to enable or disable Telescope data storage.
     |
     */
 
-    'queue' => [
-        'connection' => env('TELESCOPE_QUEUE_CONNECTION', null),
-        'queue' => env('TELESCOPE_QUEUE', null),
-        'delay' => env('TELESCOPE_QUEUE_DELAY', 10),
-    ],
+    'enabled' => env('TELESCOPE_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -113,9 +96,7 @@ return [
     ],
 
     'ignore_paths' => [
-        'livewire*',
         'nova-api*',
-        'pulse*',
     ],
 
     'ignore_commands' => [
@@ -168,12 +149,7 @@ return [
         ],
 
         Watchers\JobWatcher::class => env('TELESCOPE_JOB_WATCHER', true),
-
-        Watchers\LogWatcher::class => [
-            'enabled' => env('TELESCOPE_LOG_WATCHER', true),
-            'level' => 'error',
-        ],
-
+        Watchers\LogWatcher::class => env('TELESCOPE_LOG_WATCHER', true),
         Watchers\MailWatcher::class => env('TELESCOPE_MAIL_WATCHER', true),
 
         Watchers\ModelWatcher::class => [
