@@ -6,8 +6,10 @@
     <x-forms.auth-forms
         title="Востановление пароля"
         method="POST"
+        action="{{route('password.update')}}"
       >
         @csrf
+        <input type="hidden" name="token" value="{{$token}}">
         <x-forms.text-input
             name="email"
             type="email"
@@ -48,6 +50,9 @@
             {{$message}}
         </x-forms.error>
         @enderror
+        <x-slot:socialAuth>
+
+        </x-slot:socialAuth>
         <x-forms.primary-button>Сохранить</x-forms.primary-button>
         <x-slot:buttons>
             <div class="space-y-3 mt-5">
